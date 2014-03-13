@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TPDT.LogicGraph.Army.ArmyBase">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAKAACAAgAAAAAACAAIAAAAAAAAAQAAABAAA=</HashCode>
+      <FileName>ArmyBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.ArmyDefinition" Collapsed="true">
+    <Position X="0.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAgIAACAAAAAAAAAAQAAAAAAAAAAAIABAAAAAAAAA=</HashCode>
+      <FileName>ArmyDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.CardBase">
+    <Position X="2.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACAACAACAAACAAAAAAAAAAEAAACAAEAAAABQEA=</HashCode>
+      <FileName>CardBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.CardDefinition" Collapsed="true">
+    <Position X="2.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CardDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.DataDefinion" Collapsed="true">
+    <Position X="2.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgIAAAAAAAAAAAAEAAAAAQAAAAEAAAIAAAAAAAAA=</HashCode>
+      <FileName>DataDefinion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.Game" Collapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAHAgAAAACAAAAAAAAADAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.Global" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Global.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.LocalPlayer" Collapsed="true">
+    <Position X="8.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LocalPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.Map" Collapsed="true">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAIAAAAAgAAAAgAAAAAQAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Map.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.NodeBase">
+    <Position X="7.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAACAAgAAEAAAAAAQAAAAAAAAAAAAABAQA=</HashCode>
+      <FileName>NodeBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.NodeDefinition" Collapsed="true">
+    <Position X="5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NodeDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.PlayerBase" Collapsed="true">
+    <Position X="8.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlayerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.ResourceManager" Collapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAoIAAAAAAMAAAAAAACAAAABAgAAAAAgAAgEAAAAA=</HashCode>
+      <FileName>ResourceManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.RoadBase">
+    <Position X="5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACBgAAAAAAAiAAQAAAAAAAAgAAAAAAARAAA=</HashCode>
+      <FileName>RoadBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RoadDisplayMode" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TPDT.LogicGraph.Base.GameEntity">
+    <Position X="3.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="TPDT.LogicGraph.Base.ISelectable" Collapsed="true">
+    <Position X="12.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAACAAQAAAAAAAAAAAAAQAACAAA=</HashCode>
+      <FileName>ISelectable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TPDT.LogicGraph.Base.IRound" Collapsed="true">
+    <Position X="10.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAICAAAAAAAAAAAAAAAAAAADAAAAQAAAIAAAA=</HashCode>
+      <FileName>IRound.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TPDT.LogicGraph.Base.RoadDisplayMode">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAACAIAABAAAAAAQAAAA=</HashCode>
+      <FileName>RoadDisplayMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="TPDT.LogicGraph.Base.GetArmyNode" Collapsed="true">
+    <Position X="10.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>
