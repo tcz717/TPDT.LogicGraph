@@ -90,14 +90,15 @@
     <Compile Include="LogicGraph.cs" />
     <Compile Include="MouseHelper.cs" />
     <Compile Include="GameElement.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="UI\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Road.cs" />
+    <Compile Include="UI\Road.cs" />
     <Compile Include="ScreenManager.cs" />
     <Compile Include="Screen\GameScreen.cs" />
     <Compile Include="Screen\Screen.cs" />
     <Compile Include="UI\Button.cs" />
+    <Compile Include="UI\Window.cs" />
     <Content Include="Content\Mouse.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -138,20 +139,12 @@
     <Content Include="Content\Button110_Hover.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\110x30%283%29 副本.png" />
     <Content Include="Content\Button150.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Button150_Hover.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\150x30%283%29 副本.png" />
-    <Content Include="Content\200x30 副本.png" />
-    <Content Include="Content\200x30%282%29 副本.png" />
-    <Content Include="Content\200x30%283%29 副本.png" />
-    <Content Include="Content\80x30 副本.png" />
-    <Content Include="Content\80x30（2） 副本.png" />
-    <Content Include="Content\80x30（3） 副本.png" />
     <Content Include="Content\Button.png" />
     <Content Include="Content\ButtonHover.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -162,6 +155,7 @@
     <Content Include="Content\Node_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Window.png" />
     <Content Include="default.def">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

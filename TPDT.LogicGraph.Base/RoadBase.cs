@@ -20,6 +20,7 @@ namespace TPDT.LogicGraph.Base
         public new static string Name { get; protected set; }
         public RoadDisplayMode RoadDisplayMode { get;  set; }
         public new static string Description { get; protected set; }
+        public int Middle { get;  set; }
         public NodeBase Node1 { get; protected set; }
         public NodeBase Node2 { get; protected set; }
 		
@@ -60,6 +61,5 @@ namespace TPDT.LogicGraph.Base
             Node2 = null;
             GC.SuppressFinalize(this);
         }
-
     }
 }

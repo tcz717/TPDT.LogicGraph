@@ -2,6 +2,7 @@
 using SharpDX.DirectWrite;
 using SharpDX.Toolkit;
 using SharpDX.Toolkit.Graphics;
+using SharpDX.Toolkit.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,10 @@ namespace TPDT.LogicGraph
     class GameScreen : Screen
     {
         public ResourceManager Resource { get; set; }
-        private Button btnnode, btnroad, btnrenode, btnrerode;
+        private Button btnnode, btnroad, btnrenode, btnreroad,btncteam,btnsethome,btnsetswp;
         private Map map;
-        private int mode;
+        private OpreateMode mode;
+        private int mid;
         private NodeBase selectNode;
         private Texture2D line;
         private RoadDisplayMode roadmode = RoadDisplayMode.Direct;
@@ -28,30 +30,20 @@ namespace TPDT.LogicGraph
             btnnode = new Button(game, "Button110.png", "Add Node", Vector2.Zero, new Size2(110, 30), null, Color.White);
             btnroad = new Button(game, "Button110.png", "Add Road", new Vector2(110, 0), new Size2(110, 30), null, Color.White);
             btnrenode = new Button(game, "Button150.png", "Remove Node", new Vector2(220, 0), new Size2(150, 30), null, Color.White);
-            btnrerode = new Button(game, "Button150.png", "Remove Road", new Vector2(370, 0), new Size2(150, 30), null, Color.White);
-            btnnode.Click += btnnode_Click;
-            btnroad.Click += btnroad_Click;
-            btnrenode.Click += btnrenode_Click;
-            btnrerode.Click += btnrerode_Click;
+            btnreroad = new Button(game, "Button150.png", "Remove Road", new Vector2(370, 0), new Size2(150, 30), null, Color.White);
+            btnnode.Click += (sender, e) => {  mode = OpreateMode.AddNode; selectNode = null; };
+            btnroad.Click += (sender, e) => { mode = OpreateMode.AddRoad; mid = 0; };
+            btnrenode.Click += (sender, e) => mode = OpreateMode.RemoveNode;
+            btnreroad.Click += (sender, e) => mode = OpreateMode.RemoveRoad;
 
             this.OnButtonUp += GameScreen_OnButtonUp;
 
             map = new Map();
         }
 
-        void btnrenode_Click(object sender, EventArgs e)
-        {
-            mode = 4;
-        }
-
-        void btnrerode_Click(object sender, EventArgs e)
-        {
-            mode = 3;
-        }
-
         void GameScreen_OnButtonUp(object sender, EventArgs e)
         {
-            if (mode==1)
+            if (mode == OpreateMode.AddNode)
             {
                 var node = NodeBase.CreateNode(Resource.NodeDefinitions[0],
                     new Tuple<float, float>(Game.MouseHelper.Position.X, Game.MouseHelper.Position.Y));
@@ -59,14 +51,14 @@ namespace TPDT.LogicGraph
                 var comp = new Node(Game, node);
                 this.Components.Add(comp);
                 comp.OnButtonUp += comp_OnButtonUp;
-                this.mode = 0;
+                this.mode = OpreateMode.None;
             }
         }
 
         void comp_OnButtonUp(object sender, EventArgs e)
         {
             Node node = ((Node)sender);
-            if (mode == 4)
+            if (mode == OpreateMode.RemoveNode)
             {
                 map.Nodes.Remove(node.NodeData);
                 this.Components.Remove(node);
@@ -105,19 +97,22 @@ namespace TPDT.LogicGraph
                     }
                 }
                 //如果此时是新建道路模式 节点间没路 且两节点不同则添加一个新的路
-                if (mode == 2)
+                if (mode == OpreateMode.AddRoad)
                 {
                     if (selectNode != ((Node)sender).NodeData && flag)
                     {
+                        if ((roadmode == RoadDisplayMode.VerticalSurround || roadmode == RoadDisplayMode.HorizontalSurround) && mid == 0)
+                            return;
                         rode = RoadBase.CreateRode(0, selectNode, node.NodeData);
                         rode.RoadDisplayMode = roadmode;
+                        rode.Middle = mid;
                         map.Roads.Add(rode);
                         var rodecomp = new Road(Game, rode);
                         this.Components.Add(rodecomp);
                     }
                 }
                 //否则判断是否为道路删除模式 节点间有路 且两节点不同则删除这个路
-                else if (mode == 3)
+                else if (mode == OpreateMode.RemoveRoad)
                 {
                     if (selectNode != ((Node)sender).NodeData && !flag)
                     {
@@ -142,20 +137,9 @@ namespace TPDT.LogicGraph
                     }
                 }
                 selectNode = null;
-                mode = 0;
+                mode = OpreateMode.None;
             }
 
-        }
-
-        void btnroad_Click(object sender, EventArgs e)
-        {
-            mode = 2;
-        }
-
-        void btnnode_Click(object sender, EventArgs e)
-        {
-            mode = 1;
-            selectNode = null;
         }
         public override void Initialize()
         {
@@ -163,7 +147,7 @@ namespace TPDT.LogicGraph
             this.Components.Add(btnnode);
             this.Components.Add(btnroad);
             this.Components.Add(btnrenode);
-            this.Components.Add(btnrerode);
+            this.Components.Add(btnreroad);
 
             mode = 0;
 
@@ -173,14 +157,14 @@ namespace TPDT.LogicGraph
         }
         public override void Draw(GameTime gameTime)
         {
-            if (mode==1)
+            if (mode == OpreateMode.AddNode)
                 Game.SpriteBatch.DrawString(Game.BasicFont, "addnode", Vector2.UnitY * 25, Color.White);
-            if (mode==2)
+            if (mode == OpreateMode.AddRoad)
             {
                 if (selectNode != null)
                 {
                     Vector2 p = new Vector2(selectNode.Position.Item1, selectNode.Position.Item2);
-                    Road.DrawLine(p, Game.MouseHelper.Position, line, Game, Color.Green, roadmode);
+                    Road.DrawLine(p, Game.MouseHelper.Position, mid, line, Game, Color.Green, roadmode);
                 }
                 Game.SpriteBatch.DrawString(Game.BasicFont, roadmode.ToString(), Vector2.UnitY * 25, Color.White);
             }
@@ -193,17 +177,37 @@ namespace TPDT.LogicGraph
             btnnode.HoverBackground = Content.Load<Texture2D>("Button110_Hover.png");
             btnroad.HoverBackground = Content.Load<Texture2D>("Button110_Hover.png");
             btnrenode.HoverBackground = Content.Load<Texture2D>("Button150_Hover.png");
-            btnrerode.HoverBackground = Content.Load<Texture2D>("Button150_Hover.png");
+            btnreroad.HoverBackground = Content.Load<Texture2D>("Button150_Hover.png");
             line = Content.Load<Texture2D>("Line.png");
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
         {
-            if (mode == 2)
+            if (mode == OpreateMode.AddRoad)
             {
                 roadmode = (RoadDisplayMode)Math.Abs(Game.MouseHelper.CurrentState.WheelDelta / 100 % 5);
             }
             base.Update(gameTime);
+            if (Game.MouseHelper.CurrentState.Left == ButtonState.Pressed && mode == OpreateMode.AddRoad && this.Components.Where(n => n is Node).All(n => !((Node)n).Pressed))
+            {
+                if (roadmode == RoadDisplayMode.HorizontalSurround)
+                {
+                    mid = (int)Game.MouseHelper.Position.Y;
+                }
+                else if (roadmode == RoadDisplayMode.VerticalSurround)
+                {
+                    mid = (int)Game.MouseHelper.Position.X;
+                }
+            }
         }
+    }
+
+    internal enum OpreateMode
+    {
+        None = 0,
+        AddNode,
+        AddRoad,
+        RemoveNode,
+        RemoveRoad,
     }
 }

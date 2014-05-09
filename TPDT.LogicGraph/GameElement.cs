@@ -35,6 +35,10 @@ namespace TPDT.LogicGraph
             }
         }
 
+        public bool Pressed { get; set; }
+
+        public bool Hovered { get; set; }
+
         public override void Update(SharpDX.Toolkit.GameTime gameTime)
         {
             if (this.AbsoluteRectangle.Contains(Game.MouseHelper.Position))
@@ -44,13 +48,18 @@ namespace TPDT.LogicGraph
                     if (laststate)
                     {
                         if (OnPress != null)
+                        {
                             this.OnPress(this, new EventArgs());
+                        }
                     }
                     else
                     {
                         if (OnButtonDown != null)
+                        {
                             this.OnButtonDown(this, new EventArgs());
+                        }
                     }
+                    Pressed = true;
                     this.laststate = true;
                 }
                 else
@@ -58,22 +67,32 @@ namespace TPDT.LogicGraph
                     if (laststate)
                     {
                         if (OnButtonUp != null)
+                        {
                             this.OnButtonUp(this, new EventArgs());
+                        }
+                        Pressed = false;
                     }
                     else
                     {
                         if (OnHover != null)
+                        {
                             this.OnHover(this, new EventArgs());
+                        }
+                        Hovered = true;
                     }
 
                     this.laststate = false;
                 }
                 lasthover = true;
             }
-            else if (lasthover && OnLeave != null)
+            else if (lasthover)
             {
-                this.OnLeave(this, new EventArgs());
-                lasthover = false;
+                Hovered = false;
+                if (OnLeave != null)
+                {
+                    this.OnLeave(this, new EventArgs());
+                    lasthover = false;
+                }
             }
             base.Update(gameTime);
         }
