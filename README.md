@@ -1,4 +1,4 @@
-|卡排名  |介绍	|是否选择	|是否延时	|
+|卡牌名  |介绍	|是否选择	|是否延时	|
 |--------|----------|-------|-------|
 | Wiseman | Get two extra card from the deck |  | 
 | Rapid March | Add 1 speed to a selected unit for 1 round | 选择 | 
@@ -32,4 +32,7 @@
 | Heavy Sword Infentry | Lv:3 At:2 Df:2 Speed:1 Range:1 Cost:1 Food,2 Iron | 选择 | 
 | Heavy Sheild Infentry | Lv:3 At:1 Df:3 Speed:1 Range:1 Cost:1 Food,2 Wood | 选择 | 
 | Infiltrator | Lv:3 At:0 Df:2 Speed:5 Range:1 Cost:1 Wood,1 Iron | 选择 | 
-| 
+
+#卡牌扫面图
+![page-0](/uploads/63f34d4fc2f7391735bd186879dbb73e/page-0.jpg)
+![page-1](/uploads/5cd018d292bda24111c1134ba2556dd5/page-1.jpg)
