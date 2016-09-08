@@ -9,6 +9,7 @@ public class GameUI : MonoBehaviour
     public GameObject endTurn;
 
     public GameObject infantry;
+    public GameObject archer;
     public GameObject normal;
     public GameObject player;
     public GameObject playerText;
@@ -30,12 +31,19 @@ public class GameUI : MonoBehaviour
         RemoveNode,
         RemoveRoad,
         AddInfantry,
+        AddArcher,
     }
 
     public static GameUI MainUI { get; set; }
     public void AddInfantry()
     {
         state = UIState.AddInfantry;
+        ui_active = true;
+        Debug.Log("Clicked AddInfantry");
+    }
+    public void AddArcher()
+    {
+        state = UIState.AddArcher;
         ui_active = true;
         Debug.Log("Clicked AddInfantry");
     }
@@ -85,6 +93,12 @@ public class GameUI : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    private Action<Node> requireNodeCallback;
+    public void RequireNode(Action<Node> callback)
+    {
+        requireNodeCallback = callback;
     }
 
     public void Leave()
@@ -190,6 +204,15 @@ public class GameUI : MonoBehaviour
         if (obj.GetComponent<Node>().Army == null)
         {
             GameObject inf = infantry.Clone<Army>(obj.transform.position, infantry.transform.rotation);
+            MainGame.Current.AddArmy(inf.GetComponent<Infantry>(), obj.GetComponent<Node>());
+            state = UIState.None;
+        }
+    }
+    private void DoAddArcher(GameObject obj)
+    {
+        if (obj.GetComponent<Node>().Army == null)
+        {
+            GameObject inf = archer.Clone<Army>(obj.transform.position, infantry.transform.rotation);
             MainGame.Current.AddArmy(inf.GetComponent<Infantry>(), obj.GetComponent<Node>());
             state = UIState.None;
         }
@@ -341,6 +364,9 @@ public class GameUI : MonoBehaviour
                     break;
                 case UIState.AddInfantry:
                     DoAddInfantry(obj);
+                    break;
+                case UIState.AddArcher:
+                    DoAddArcher(obj);
                     break;
                 default:
                     break;
