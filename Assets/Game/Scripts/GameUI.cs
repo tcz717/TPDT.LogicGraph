@@ -37,14 +37,20 @@ public class GameUI : MonoBehaviour
     public static GameUI MainUI { get; set; }
     public void AddInfantry()
     {
-        state = UIState.AddInfantry;
-        ui_active = true;
+        RequireNodeWithoutArmy((node) =>
+        {
+            AddArmy(infantry, node);
+            return true;
+        });
         Debug.Log("Clicked AddInfantry");
     }
     public void AddArcher()
     {
-        state = UIState.AddArcher;
-        ui_active = true;
+        RequireNodeWithoutArmy((node) =>
+        {
+            AddArmy(archer, node);
+            return true;
+        });
         Debug.Log("Clicked AddInfantry");
     }
 
@@ -95,10 +101,17 @@ public class GameUI : MonoBehaviour
         Application.Quit();
     }
 
-    private Action<Node> requireNodeCallback;
-    public void RequireNode(Action<Node> callback)
+    private Func<Node, bool> requireNodeCallback;
+    private Func<Node, bool> checkNodeCallback;
+    public void RequireNode(Func<Node, bool> callback)
     {
         requireNodeCallback = callback;
+        checkNodeCallback = (node) => true;
+    }
+    public void RequireNodeWithoutArmy(Func<Node, bool> callback)
+    {
+        requireNodeCallback = callback;
+        checkNodeCallback = (node) => node.Army == null;
     }
 
     public void Leave()
@@ -135,8 +148,18 @@ public class GameUI : MonoBehaviour
                 DoAddRoad(map[j + 1, i]);
             }
         }
+        
+        AddArmy(infantry, map[2, 2]);
+    }
 
-        DoAddInfantry(map[2, 2]);
+    public void AddArmy(GameObject template, Node position)
+    {
+        GameObject army = template.Clone<Army>(position.gameObject.transform.position, template.transform.rotation);
+        MainGame.Current.AddArmy(army.GetComponent<Army>(), position);
+    }
+    public void AddArmy(GameObject template, GameObject position)
+    {
+        AddArmy(template, position.GetComponent<Node>());
     }
 
     public void OnSelect(GameObject obj)
@@ -196,25 +219,6 @@ public class GameUI : MonoBehaviour
 
             if (selected != null)
                 OnSelect(selected);
-        }
-    }
-
-    private void DoAddInfantry(GameObject obj)
-    {
-        if (obj.GetComponent<Node>().Army == null)
-        {
-            GameObject inf = infantry.Clone<Army>(obj.transform.position, infantry.transform.rotation);
-            MainGame.Current.AddArmy(inf.GetComponent<Infantry>(), obj.GetComponent<Node>());
-            state = UIState.None;
-        }
-    }
-    private void DoAddArcher(GameObject obj)
-    {
-        if (obj.GetComponent<Node>().Army == null)
-        {
-            GameObject inf = archer.Clone<Army>(obj.transform.position, infantry.transform.rotation);
-            MainGame.Current.AddArmy(inf.GetComponent<Infantry>(), obj.GetComponent<Node>());
-            state = UIState.None;
         }
     }
 
@@ -349,6 +353,13 @@ public class GameUI : MonoBehaviour
 
         if (node.Army != null)
             SelectArmy(node.Army);
+
+        if (requireNodeCallback != null && checkNodeCallback(node))
+        {
+            bool result = requireNodeCallback(node);
+            if (result)
+                requireNodeCallback = null;
+        }
         if (!ui_active)
         {
             switch (state)
@@ -361,12 +372,6 @@ public class GameUI : MonoBehaviour
                     break;
                 case UIState.RemoveRoad:
                     DoRemoveRoad(obj);
-                    break;
-                case UIState.AddInfantry:
-                    DoAddInfantry(obj);
-                    break;
-                case UIState.AddArcher:
-                    DoAddArcher(obj);
                     break;
                 default:
                     break;
