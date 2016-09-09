@@ -7,8 +7,9 @@ public class Player : MonoBehaviour, ITemplatable
 {
     static int seed = 0;
     public int id;
-    public string name;
+    public string playerName;
     public List<Army> Armys { get; private set; }
+    public bool Activited { get; private set; }
     public Color chiefColor;
     public int leftMoveTimes;
 
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour, ITemplatable
     void Start () {
         Armys = new List<Army>();
         leftMoveTimes = 0;
+        Activited = false;
     }
 	
 	// Update is called once per frame
@@ -37,10 +39,12 @@ public class Player : MonoBehaviour, ITemplatable
     internal void EndTurn()
     {
         leftMoveTimes = 0;
+        Activited = false;
     }
 
     internal void StartTurn()
     {
         leftMoveTimes = 1;
+        Activited = true;
     }
 }
