@@ -27,6 +27,7 @@ public class Army : MonoBehaviour, ITemplatable
     public int id;
     public Node Node { get; set; }
     public Player Owner { get; set; }
+    public int level;
     public float velocity;
     public float attackRange;
     public float attackPoint;
@@ -119,8 +120,6 @@ public class Army : MonoBehaviour, ITemplatable
     public void Unpin()
     {
         Pined = false;
-        //if (!draged)
-        //    transform.position = Node.transform.position;
     }
 
     public virtual int TryAttack(Army defender)

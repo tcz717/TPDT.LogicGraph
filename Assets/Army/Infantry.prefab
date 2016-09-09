@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  level: 1
   velocity: 1
   attackRange: 1
   attackPoint: 1
